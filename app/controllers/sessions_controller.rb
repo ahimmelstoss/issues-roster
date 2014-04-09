@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
 
   def create
     set_session_data
-    
+
     if session['github'][:token]
-      redirect '/'
+      redirect_to 
     end
   end
 
