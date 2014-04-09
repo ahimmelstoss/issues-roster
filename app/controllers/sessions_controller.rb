@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     set_session_data
 
     if session['github'][:token]
-      redirect_to 
+      redirect_to organizations_index_path
     end
   end
 
