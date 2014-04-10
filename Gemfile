@@ -12,6 +12,7 @@ gem 'figaro', git: 'git@github.com:laserlemon/figaro.git'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'typhoeus'
+gem 'github_api'
 
 group :test, :development do
   gem "rspec-rails"
