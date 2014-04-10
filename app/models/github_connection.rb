@@ -5,12 +5,7 @@ class GithubConnection
     @username = github_data["username"]
     @token = github_data["token"]
     @orgs = {}
-    @issues = {}
     @repos = {}
-  end
-
-  def organizations
-    @organizations ||= get_organizations
   end
 
   def get_organizations
@@ -19,7 +14,20 @@ class GithubConnection
       headers: {Authorization: "token #{token}"}
     )
     response = request.run
-    orgs = JSON.parse(response.body).map {|org| org["login"]}
+    orgs = JSON.parse(response.body).map do |org| 
+      org
+    end
+  end
+
+  def get_repos(organization)
+    request = Typheous::Request.new(
+      "https://api.github.com/orgs/#{organization}/repos", 
+      headers: {Authorization: "token #{token}"}
+      )
+    response = request.run
+    repos = JSON.parse(reponse.body).map do |repo|
+      repo
+    end
   end
 
 end
