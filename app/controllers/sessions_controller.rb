@@ -11,6 +11,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    reset_session
+    redirect_to root_path
+  end
+
   private
     def set_session_data
       github_data = request.env['omniauth.auth']
