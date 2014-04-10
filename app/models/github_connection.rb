@@ -25,6 +25,7 @@ class GithubConnection
       headers: {Authorization: "token #{token}"}
       )
     response = request.run
+    #through iteration, push into big hash that has all orgs already in it
     repos = JSON.parse(reponse.body).map do |repo|
       repo
     end
