@@ -2,7 +2,8 @@ class OrganizationsController < ApplicationController
 
   def index
     @github = GithubConnection.new(session['github'])
-    @organizations = @github.get_organizations
+    @all_the_stuff = @github.all_data
+    binding.pry
   end
 
 end

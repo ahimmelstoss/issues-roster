@@ -1,11 +1,15 @@
 class GithubConnection
-  attr_reader :username, :token, :orgs, :issues, :repos
+  attr_reader :username, :token, :orgs, :data
 
   def initialize(github_data)
     @username = github_data["username"]
     @token = github_data["token"]
+    @data = []
     @orgs = {}
-    @repos = {}
+  end
+
+  def organizations
+    get_organizations
   end
 
   def get_organizations
@@ -19,16 +23,31 @@ class GithubConnection
     end
   end
 
-  def get_repos(organization)
-    request = Typheous::Request.new(
-      "https://api.github.com/orgs/#{organization}/repos", 
-      headers: {Authorization: "token #{token}"}
-      )
-    response = request.run
-    #through iteration, push into big hash that has all orgs already in it
-    repos = JSON.parse(reponse.body).map do |repo|
-      repo
-    end
+  def all_data
+    get_issues_for_all_orgs(organizations)
   end
+
+  def get_issues_for_all_orgs(orgs)
+    # pass in the orgs hash, for each org, get the name to pass to the request
+    # get all the issues for that org
+    # push each org and corresponding issues into data array
+    # all data should look like [{org_name, issues}, {org_name, issues}]
+    orgs.each do |org|
+      hash = {:org_name => org['login']}
+      request = Typhoeus::Request.new(
+        "https://api.github.com/orgs/#{org["login"]}/issues", 
+        headers: {Authorization: "token #{token}"}
+        )
+      response = request.run
+      binding.pry
+      issues = JSON.parse(response.body).map do |issue|
+        issue
+      end
+      hash[:issues] = issues
+      @data << hash
+    end
+    return @data
+  end
+
 
 end
