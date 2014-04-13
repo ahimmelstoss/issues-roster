@@ -2,7 +2,14 @@ class OrganizationsController < ApplicationController
 
   def index
     @github = GithubConnection.new(session['github'])
-    @orgs_repos = @github.all_orgs_repos
+    @username = @github.username
+    @organizations = @github.get_organizations
+  end
+
+  def show
+    @github = GithubConnection.new(session['github'])
+    @organization = params[:organization]
+    @repos = @github.get_repos(@organization)
   end
 
 end

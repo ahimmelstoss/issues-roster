@@ -1,14 +1,9 @@
 class GithubConnection
-  attr_reader :username, :token, :orgs, :orgs_repos, :issues
+  attr_reader :username, :token, :orgs, :repos, :issues
 
   def initialize(github_data)
     @username = github_data["username"]
     @token = github_data["token"]
-    @orgs_repos = []
-  end
-
-  def organizations
-    get_organizations
   end
 
   def get_organizations
@@ -18,35 +13,36 @@ class GithubConnection
     )
     response = request.run
     orgs = JSON.parse(response.body).map do |org| 
-      org
+      org["login"]
     end
   end
 
-  def all_orgs_repos
-    #[{:org_name => "org1", :org_repos => [repo1, repo2]}, {:org_name => "org2", :org_repos => [repo1, repo2]}]
-    get_repos_for_all_orgs(organizations)
-  end
-
-  def get_repos_for_all_orgs(orgs)
-    orgs.each do |org|
-      hash = {:org_name => org["login"]}
-      request = Typhoeus::Request.new(
-        "https://api.github.com/orgs/#{org["login"]}/repos",
-        headers: {Authorization: "token #{token}"}
-        )
-      response = request.run
-      repos = JSON.parse(response.body).map do |repo|
-        repo["name"]
-      end
-      hash[:org_repos] = repos
-      @orgs_repos << hash
+  #gets all the repos for one org, given an org (method called in controller for show; params gives org name to then be passed into the method)
+  def get_repos(organization)
+    request = Typhoeus::Request.new(
+      "https://api.github.com/orgs/#{organization}/repos",
+      headers: {Authorization: "token #{token}"}
+      )
+    response = request.run
+    repos = JSON.parse(response.body).map do |repo|
+      repo["name"]
     end
-    @orgs_repos
   end
 
   #GET /repos/:owner/:repo/issues
-  def get_issues_for_all_repos
+  #how to pass in the corresponding org? params?
+  def get_issues(organization, repo)
+    request = Typhoeus::Request.new(
+      "https://api.github.com/#{organization}/#{repo}/issues",
+      headers: {Authorization: "token #{token}"}
+      )
+    response = request.run
+    repos = JSON.parse(response.body).map do |issue|
+      issue
+    end
   end
-  
+
+  #old
+  #[{:org_name => "org1", :org_repos => [repo1, repo2]}, {:org_name => "org2", :org_repos => [repo1, repo2]}]
 
 end

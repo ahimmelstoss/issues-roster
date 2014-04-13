@@ -1,0 +1,5 @@
+<h1> <%= @organization %> Repos </h1>
+
+<% @repos.each do |repo| %>
+  <%= link_to repo, repo_path(:repo => repo) %><br>
+<% end %>

@@ -1,8 +1,6 @@
-<h1>Organizations</h1>
+<h1><%= @username %>'s Organizations</h1>
 
-<% @orgs_repos.each do |org_repo| %>
-  <h4><%= org_repo[:org_name] %></h4>
-    <% org_repo[:org_repos].each do |repo| %>
-    <a href="https://github.com/<%= org_repo[:org_name] %>/<%= repo %>"><%= repo %></a><br>
-    <% end %>
+<% @organizations.each do |organization| %>
+  <%= link_to organization, organization_path(:organization => organization) %><br>
 <% end %>
+
