@@ -1,15 +1,19 @@
 class OrganizationsController < ApplicationController
+  before_action :github_connection, only: [:index, :show]
 
   def index
-    @github = GithubConnection.new(session['github'])
     @username = @github.username
     @organizations = @github.get_organizations
   end
 
   def show
-    @github = GithubConnection.new(session['github'])
     @organization = params[:organization]
     @repos = @github.get_repos(@organization)
+  end
+
+  private
+  def github_connection
+    @github = GithubConnection.new(session['github'])
   end
 
 end

@@ -30,10 +30,9 @@ class GithubConnection
   end
 
   #GET /repos/:owner/:repo/issues
-  #how to pass in the corresponding org? params?
   def get_issues(organization, repo)
     request = Typhoeus::Request.new(
-      "https://api.github.com/#{organization}/#{repo}/issues",
+      "https://api.github.com/repos/#{organization}/#{repo}/issues",
       headers: {Authorization: "token #{token}"}
       )
     response = request.run
