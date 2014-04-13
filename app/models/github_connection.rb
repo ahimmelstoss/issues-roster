@@ -1,6 +1,8 @@
 class GithubConnection
   attr_reader :username, :token, :orgs, :repos, :issues
 
+  #TODO: refactor repeated code
+
   def initialize(github_data)
     @username = github_data["username"]
     @token = github_data["token"]
@@ -17,7 +19,7 @@ class GithubConnection
     end
   end
 
-  #gets all the repos for one org, given an org (method called in controller for show; params gives org name to then be passed into the method)
+  #TODO: how to get all repos, even those that are private?
   def get_repos(organization)
     request = Typhoeus::Request.new(
       "https://api.github.com/orgs/#{organization}/repos",
@@ -29,7 +31,7 @@ class GithubConnection
     end
   end
 
-  #GET /repos/:owner/:repo/issues
+  #TODO: how to account for no issues found?
   def get_issues(organization, repo)
     request = Typhoeus::Request.new(
       "https://api.github.com/repos/#{organization}/#{repo}/issues",
@@ -40,8 +42,5 @@ class GithubConnection
       issue
     end
   end
-
-  #old
-  #[{:org_name => "org1", :org_repos => [repo1, repo2]}, {:org_name => "org2", :org_repos => [repo1, repo2]}]
 
 end
