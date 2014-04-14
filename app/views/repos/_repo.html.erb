@@ -1,0 +1,17 @@
+<div class="all-issues">
+  <% if !@issues.empty? %>
+    <% @issues.each do |issue|  %>
+      <ul>
+        <li><strong>Issue: <%= link_to issue["title"], issue["html_url"], :target => "_blank" %></strong></li>
+        <li>Submitted by: <%= link_to issue["user"]["login"], issue["user"]["html_url"], :target => "_blank" %></li>
+        <li>Date: <%= DateTime.parse(issue["created_at"]).to_formatted_s(:long) %></li>
+        <li>Status: <%= issue["state"] %></li>
+      <% if !issue["labels"].empty? %>
+        <li>Labels: <%= issue["labels"][0]["name"] %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  <% else %>
+    <p><strong>There are no issues currently on this repo.</strong></p>
+  <% end %>
+</div>

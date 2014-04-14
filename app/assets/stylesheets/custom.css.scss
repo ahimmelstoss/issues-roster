@@ -1,0 +1,42 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.jumbotron {
+  @include border-radius(5px);
+  width: 500px; 
+}
+
+.about-custom {
+  background-color: rgba(245, 245, 245, 0.8);
+  position: absolute;
+  left: 30%;
+  top: 20%; 
+}
+
+.button-centered {
+  text-align: center; 
+}

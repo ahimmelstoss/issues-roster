@@ -1,0 +1,6 @@
+// on click of the repo name, append rendered partial that is a list of issues
+// toggle down
+// on click again of repo name, hide that partial
+// toggle up
+
+  $('#holderDiv').html('<%= j render (partial: "repo") %>').slideToggle("slow");

@@ -1,5 +1,6 @@
 <h1> <%= @organization %> Repos </h1>
 
 <% @repos.each do |repo| %>
-  <%= link_to repo, repo_path(:repo => repo) %><br>
+  <%= link_to repo, repo_path(:repo => repo), :remote => true %><br>
+  <div id="holderDiv"></div>
 <% end %>

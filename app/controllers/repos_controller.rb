@@ -6,6 +6,9 @@ class ReposController < ApplicationController
     @repo = params[:repo]
     @organization = params[:organization]
     @issues = @github.get_issues(@organization, @repo)
+    respond_to do |format|
+     format.js
+    end
   end
 
   private
