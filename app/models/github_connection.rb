@@ -19,7 +19,6 @@ class GithubConnection
     end
   end
 
-  #TODO: how to get all repos, even those that are private?
   def get_repos(organization)
     request = Typhoeus::Request.new(
       "https://api.github.com/orgs/#{organization}/repos",
@@ -31,7 +30,6 @@ class GithubConnection
     end
   end
 
-  #TODO: how to account for no issues found?
   def get_issues(organization, repo)
     request = Typhoeus::Request.new(
       "https://api.github.com/repos/#{organization}/#{repo}/issues",

@@ -1,5 +1,9 @@
-<% @issues.each do |issue|  %>
- <h3>Issue: <%= issue["title"] %></h3>
- <h4>Submitted by: <%= issue["user"]["login"] %></h4>
- <p>Status: <%= issue["state"] %></p>
+<% if !@issues.empty? %>
+  <% @issues.each do |issue|  %>
+   <h3>Issue: <%= issue["title"] %></h3>
+   <h4>Submitted by: <%= issue["user"]["login"] %></h4>
+   <p>Status: <%= issue["state"] %></p>
+  <% end %>
+<% else %>
+  <p>There are no issues currently on this repo.</p>
 <% end %>
