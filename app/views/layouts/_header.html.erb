@@ -7,12 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "Issues Roster", root_path, class: "navbar-brand" %>
     </div>
 
     <div class="collapse navbar-collapse navbar-ex1-collapse">
       <ul class="nav navbar-nav navbar-right">
-         <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+        <% if session['github'] %>
+          <li><%= link_to "Log Out", logout_path, method: :delete %></li>
+        <% end %>
       </ul>
     </div>
   </div>
