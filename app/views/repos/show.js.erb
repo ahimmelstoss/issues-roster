@@ -3,4 +3,4 @@
 // on click again of repo name, hide that partial
 // toggle up
 
-  $('#holderDiv').html('<%= j render (partial: "repo") %>').slideToggle("slow");
+$('#holderDiv').html('<%= escape_javascript(render :partial => "repo") %>').slideToggle("slow");
