@@ -1,6 +1,3 @@
-// on click of the repo name, append rendered partial that is a list of issues
-// toggle down
-// on click again of repo name, hide that partial
-// toggle up
-
 $('#holderDiv').html('<%= escape_javascript(render :partial => "repo") %>').slideToggle("slow");
+
+//TODO: remove the :remote => true and render with .get() and pass data attribute info
